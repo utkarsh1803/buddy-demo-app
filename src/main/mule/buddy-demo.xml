@@ -10,5 +10,6 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<flow name="buddy-demoFlow" doc:id="543b2617-b11c-4219-8a03-c1719fcbe291" >
 		<http:listener doc:name="Listener" doc:id="505f90e1-0208-438e-95c3-5025ead733ba" config-ref="HTTP_Listener_config" path="/buddy"/>
 		<logger level="INFO" doc:name="Logger" doc:id="ff266bf7-3dfd-4196-b967-b09ab9682fe0" />
+		<logger level="INFO" doc:name="Logger" doc:id="b1b33127-dd4c-47de-8f9a-f705f5c9ba1f" message="#[payload]"/>
 	</flow>
 </mule>
