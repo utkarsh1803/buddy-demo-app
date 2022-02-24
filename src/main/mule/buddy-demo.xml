@@ -7,10 +7,20 @@ http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/htt
 	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="37762faa-6277-49a5-9ef3-c922e09188d6" >
 		<http:listener-connection host="0.0.0.0" port="8081" />
 	</http:listener-config>
+	<http:request-config name="HTTP_Request_configuration" doc:name="HTTP Request configuration" doc:id="03e32e82-d55e-4b9c-82e6-75a438220130" basePath="/v6" >
+		<http:request-connection protocol="HTTPS" host="open.er-api.com" />
+	</http:request-config>
 	<flow name="buddy-demoFlow" doc:id="543b2617-b11c-4219-8a03-c1719fcbe291" >
 		<http:listener doc:name="Listener" doc:id="505f90e1-0208-438e-95c3-5025ead733ba" config-ref="HTTP_Listener_config" path="/buddy"/>
-		<logger level="INFO" doc:name="Logger" doc:id="ff266bf7-3dfd-4196-b967-b09ab9682fe0" />
-		<logger level="INFO" doc:name="Logger" doc:id="b1b33127-dd4c-47de-8f9a-f705f5c9ba1f" message="#[payload]"/>
-		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="86c13682-26d1-46f7-bf77-40f1e675b4b3" />
+		<logger level="INFO" doc:name="Logger" doc:id="dc8ca7a7-82d4-45b8-bbf2-89a82f77bdbe" message="#[attributes.queryParams.code]"/>
+		<set-variable value="#[attributes.queryParams.code]" doc:name="Set Variable" doc:id="2f421802-55ff-47d4-9580-6b29a4953f39" variableName="currency"/>
+		<http:request method="GET" doc:name="Request" doc:id="8844e261-d207-4812-b540-58a7fccee640" config-ref="HTTP_Request_configuration" path="/latest">
+			<http:uri-params ><![CDATA[#[output application/java
+---
+{
+	code : attributes.queryParams.code
+}]]]></http:uri-params>
+		</http:request>
+		<set-payload value="#[payload]" doc:name="Set Payload" doc:id="e3b0a970-71e1-4896-922c-33654b5a9e19" />
 	</flow>
 </mule>
