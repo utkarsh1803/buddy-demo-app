@@ -38,7 +38,7 @@
 						<password>${anypoint_password}</password>
 						<applicationName>${cloudhub.application.name}</applicationName>
 						<businessGroup>J4RVIS</businessGroup>
-						<environment>${environment}</environment>
+						<environment>DEV</environment>
 						<region>${region}</region>
 						<workers>${workers}</workers>
 						<workerType>${workerType}</workerType>
